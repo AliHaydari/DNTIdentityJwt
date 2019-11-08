@@ -1,0 +1,68 @@
+﻿<div class="navbar-nav">
+    <div class="dropdown">
+        <a class="nav-item nav-link dropdown-toggle" data-toggle="dropdown"
+           id="reportsDropdown" aria-haspopup="true"
+           aria-expanded="false" href="#">
+            گزارشات نمونه
+        </a>
+        <div class="dropdown-menu" aria-labelledby="reportsDropdown">
+            <security-trimming asp-area="" asp-controller="DynamicPermissionsTest" asp-action="Products">
+                    <a class="dropdown-item" asp-controller="DynamicPermissionsTest" asp-action="Products" asp-area="">
+                        <span class="mr-1 fas fa-user" aria-hidden="true"></span>
+                        گزارش از لیست محصولات
+                    </a>
+            </security-trimming>
+
+            <security-trimming asp-area="" asp-controller="DynamicPermissionsTest" asp-action="Orders">
+                    <a class="dropdown-item" asp-controller="DynamicPermissionsTest" asp-action="Orders" asp-area="">
+                        <span class="mr-1 fas fa-cog" aria-hidden="true"></span>
+                        گزارش از لیست سفارشات
+                    </a>
+            </security-trimming>
+
+            <security-trimming asp-area="" asp-controller="DynamicPermissionsTest" asp-action="Sells">
+                    <a class="dropdown-item" asp-controller="DynamicPermissionsTest" asp-action="Sells" asp-area="">
+                        <span class="mr-1 fas fa-asterisk" aria-hidden="true"></span>
+                        گزارش از لیست فروش
+                    </a>
+            </security-trimming>
+
+            <security-trimming asp-area="" asp-controller="DynamicPermissionsTest" asp-action="Customers">
+                    <a class="dropdown-item" asp-controller="DynamicPermissionsTest" asp-action="Customers" asp-area="">
+                        <span class="mr-1 fas fa-sign-out-alt" aria-hidden="true"></span>
+                        گزارش از لیست خریداران
+                    </a>
+            </security-trimming>
+
+            <div class="dropdown-divider"></div>
+
+            <security-trimming asp-area="" asp-controller="DynamicPermissionsSample" asp-action="Books">
+                    <a class="dropdown-item" asp-controller="DynamicPermissionsSample" asp-action="Books" asp-area="">
+                        <span class="mr-1 fas fa-user" aria-hidden="true"></span>
+                        گزارش از لیست کتاب‌ها
+                    </a>
+            </security-trimming>
+
+            <security-trimming asp-area="" asp-controller="DynamicPermissionsSample" asp-action="Users">
+                    <a class="dropdown-item" asp-controller="DynamicPermissionsSample" asp-action="Users" asp-area="">
+                        <span class="mr-1 fas fa-cog" aria-hidden="true"></span>
+                        گزارش از لیست مراجعان
+                    </a>
+            </security-trimming>
+
+            <security-trimming asp-area="" asp-controller="DynamicPermissionsSample" asp-action="BooksGiven">
+                    <a class="dropdown-item" asp-controller="DynamicPermissionsSample" asp-action="BooksGiven" asp-area="">
+                        <span class="mr-1 fas fa-asterisk" aria-hidden="true"></span>
+                        گزارش از لیست امانات
+                    </a>
+            </security-trimming>
+
+            <security-trimming asp-area="" asp-controller="DynamicPermissionsSample" asp-action="BooksMissings">
+                    <a class="dropdown-item" asp-controller="DynamicPermissionsSample" asp-action="BooksMissings" asp-area="">
+                        <span class="mr-1 fas fa-sign-out-alt" aria-hidden="true"></span>
+                        گزارش از لیست مفقودی‌ها
+                    </a>
+            </security-trimming>
+        </div>
+    </div>
+</div>

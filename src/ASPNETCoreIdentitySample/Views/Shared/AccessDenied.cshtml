@@ -1,0 +1,13 @@
+﻿@{
+    ViewData["Title"] = "عدم دسترسی!";
+    this.Context.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
+}
+
+<div class="card panel-danger mt-5">
+    <div class="card-header">
+        <h5 class="card-title">@ViewData["Title"]</h5>
+    </div>
+    <div class="card-body">
+        متاسفانه شما مجوز دسترسی به صفحه‌ی درخواستی را ندارید.
+    </div>
+</div>

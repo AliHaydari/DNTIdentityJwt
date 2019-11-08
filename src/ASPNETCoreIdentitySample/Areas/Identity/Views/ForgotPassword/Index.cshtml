@@ -1,0 +1,47 @@
+﻿@model ForgotPasswordViewModel
+@{
+    ViewData["Title"] = "بازیابی کلمه‌ی عبور فراموش شده";
+}
+
+<div class="card mt-5">
+    <div class="card-header">
+        <h5 class="card-title">@ViewData["Title"]</h5>
+    </div>
+    <div class="card-body">
+        <form asp-controller="ForgotPassword" asp-action="Index" method="post">
+            <partial name="_CustomValidationSummary" />
+            <div class="form-group row">
+                <label asp-for="Email" class="col-md-2 col-form-label text-md-left"></label>
+                <div class="col-md-10">
+                    <input dir="ltr" asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-2 col-form-label text-md-left">
+                    کد امنیتی
+                </label>
+                <div class="col col-md-10">
+                    <dnt-captcha asp-captcha-generator-max="30"
+                                 asp-captcha-generator-min="1"
+                                 asp-captcha-generator-language="Persian"
+                                 asp-captcha-generator-display-mode="SumOfTwoNumbers"
+                                 asp-font-name="Tahoma"
+                                 asp-font-size="20"
+                                 asp-refresh-button-class="fas fa-redo btn-sm"
+                                 asp-fore-color="#333333"
+                                 asp-back-color="#ccc"
+                                 asp-text-box-class="text-box form-control"
+                                 asp-text-box-template="<div class='input-group'><span class='input-group-prepend'><span class='input-group-text'><i class='fas fa-lock'></i></span></span>{0}</div>"
+                                 asp-validation-message-class="text-danger"
+                                 />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="offset-md-2 col-md-10">
+                    <button type="submit" class="btn btn-info col-md-2">ارسال</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

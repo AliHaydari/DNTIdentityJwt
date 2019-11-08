@@ -1,0 +1,23 @@
+﻿<div class="navbar-nav">
+    <div class="dropdown">
+        <a class="nav-item nav-link dropdown-toggle" data-toggle="dropdown"
+           id="adminDropdown" aria-haspopup="true"
+           aria-expanded="false" href="#">
+            منوی مدیریتی
+        </a>
+        <div class="dropdown-menu" aria-labelledby="adminDropdown">
+                <a class="dropdown-item" asp-controller="UsersManager" asp-action="Index" asp-area="@AreaConstants.IdentityArea">
+                    <i class="fas fa-user mr-1" aria-hidden="true"></i>
+                    مدیریت کاربران
+                </a>
+                <a class="dropdown-item" asp-controller="RolesManager" asp-action="Index" asp-area="@AreaConstants.IdentityArea">
+                    <i class="fas fa-object-group mr-1" aria-hidden="true"></i>
+                    مدیریت نقش‌های سیستم
+                </a>
+                <a class="dropdown-item" asp-controller="SystemLog" asp-action="Index" asp-area="@AreaConstants.IdentityArea">
+                    <i class="fas fa-bell mr-1" aria-hidden="true"></i>
+                    گزارش رخ‌دادهای سیستم
+                </a>
+        </div>
+    </div>
+</div>
