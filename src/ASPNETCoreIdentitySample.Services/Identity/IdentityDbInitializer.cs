@@ -141,7 +141,8 @@ namespace ASPNETCoreIdentitySample.Services.Identity
                 Email = email,
                 EmailConfirmed = true,
                 IsEmailPublic = true,
-                LockoutEnabled = true
+                LockoutEnabled = true,
+                SerialNumber = Guid.NewGuid().ToString("N"),
             };
             var adminUserResult = await _applicationUserManager.CreateAsync(adminUser, password);
             if (adminUserResult == IdentityResult.Failed())

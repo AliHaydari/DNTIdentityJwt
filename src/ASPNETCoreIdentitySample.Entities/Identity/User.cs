@@ -18,6 +18,7 @@ namespace ASPNETCoreIdentitySample.Entities.Identity
         {
             UserUsedPasswords = new HashSet<UserUsedPassword>();
             UserTokens = new HashSet<UserToken>();
+            JwtUserTokens = new HashSet<JwtUserToken>();
         }
 
         [StringLength(450)]
@@ -50,6 +51,17 @@ namespace ASPNETCoreIdentitySample.Entities.Identity
         public string Location { set; get; }
 
         public bool IsActive { get; set; } = true;
+
+        public DateTimeOffset? LastLoggedIn { get; set; }
+
+        /// <summary>
+        /// every time the user changes his Password,
+        /// or an admin changes his Roles or stat/IsActive,
+        /// create a new `SerialNumber` GUID and store it in the DB.
+        /// </summary>
+        public string SerialNumber { get; set; }
+
+        public virtual ICollection<JwtUserToken> JwtUserTokens { get; set; }
 
         public virtual ICollection<UserUsedPassword> UserUsedPasswords { get; set; }
 

@@ -49,7 +49,7 @@ namespace ASPNETCoreIdentitySample.Services.Identity
             var request = _httpContextAccessor.HttpContext.Request;
             if (request.Method.Equals("post", StringComparison.OrdinalIgnoreCase))
             {
-                if (request.IsAjaxRequest() && request.ContentType.Contains("application/json"))
+                if (/*request.Path.ToString().StartsWith("/api") ||*/ request.IsAjaxRequest() && request.ContentType.Contains("application/json"))
                 {
                     var httpRequestInfoService = _httpContextAccessor.HttpContext.RequestServices.GetRequiredService<IHttpRequestInfoService>();
                     var model = await httpRequestInfoService.DeserializeRequestJsonBodyAsAsync<RoleViewModel>();

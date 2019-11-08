@@ -409,5 +409,32 @@ namespace ASPNETCoreIdentitySample.Services.Identity
         }
 
         #endregion
+
+        #region Jwt
+
+        public async Task<string> GetSerialNumberAsync(int userId)
+        {
+            var user = await FindByIdAsync(userId.ToString());
+            return user.SerialNumber;
+        }
+
+        public async Task UpdateUserLastActivityDateAsync(int userId)
+        {
+            var user = await FindByIdAsync(userId.ToString());
+            if (user.LastLoggedIn != null)
+            {
+                var updateLastActivityDate = TimeSpan.FromMinutes(2);
+                var currentUtc = DateTimeOffset.UtcNow;
+                var timeElapsed = currentUtc.Subtract(user.LastLoggedIn.Value);
+                if (timeElapsed < updateLastActivityDate)
+                {
+                    return;
+                }
+            }
+            user.LastLoggedIn = DateTimeOffset.UtcNow;
+            await _uow.SaveChangesAsync();
+        }
+
+        #endregion
     }
 }

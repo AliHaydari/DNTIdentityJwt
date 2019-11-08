@@ -1066,5 +1066,13 @@ namespace ASPNETCoreIdentitySample.Services.Contracts.Identity
         Task<PagedUsersListViewModel> GetPagedUsersListAsync(SearchUsersViewModel model, int pageNumber);
 
         #endregion
+
+        #region Jwt
+
+        Task<string> GetSerialNumberAsync(int userId);
+
+        Task UpdateUserLastActivityDateAsync(int userId);
+
+        #endregion
     }
 }

@@ -175,6 +175,69 @@ namespace ASPNETCoreIdentitySample.DataLayer.MSSQL.Migrations
                     b.ToTable("AppSqlCache","dbo");
                 });
 
+            modelBuilder.Entity("ASPNETCoreIdentitySample.Entities.Identity.JwtUserToken", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTimeOffset>("AccessTokenExpiresDateTime")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("AccessTokenHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CreatedByBrowserName")
+                        .HasColumnType("nvarchar(1000)")
+                        .HasMaxLength(1000);
+
+                    b.Property<string>("CreatedByIp")
+                        .HasColumnType("nvarchar(255)")
+                        .HasMaxLength(255);
+
+                    b.Property<int?>("CreatedByUserId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("CreatedDateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ModifiedByBrowserName")
+                        .HasColumnType("nvarchar(1000)")
+                        .HasMaxLength(1000);
+
+                    b.Property<string>("ModifiedByIp")
+                        .HasColumnType("nvarchar(255)")
+                        .HasMaxLength(255);
+
+                    b.Property<int?>("ModifiedByUserId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("ModifiedDateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTimeOffset>("RefreshTokenExpiresDateTime")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("RefreshTokenIdHash")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)")
+                        .HasMaxLength(450);
+
+                    b.Property<string>("RefreshTokenIdHashSource")
+                        .HasColumnType("nvarchar(450)")
+                        .HasMaxLength(450);
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AppJwtUserTokens");
+                });
+
             modelBuilder.Entity("ASPNETCoreIdentitySample.Entities.Identity.Role", b =>
                 {
                     b.Property<int>("Id")
@@ -334,6 +397,9 @@ namespace ASPNETCoreIdentitySample.DataLayer.MSSQL.Migrations
                     b.Property<bool>("IsEmailPublic")
                         .HasColumnType("bit");
 
+                    b.Property<DateTimeOffset?>("LastLoggedIn")
+                        .HasColumnType("datetimeoffset");
+
                     b.Property<string>("LastName")
                         .HasColumnType("nvarchar(450)")
                         .HasMaxLength(450);
@@ -387,6 +453,10 @@ namespace ASPNETCoreIdentitySample.DataLayer.MSSQL.Migrations
 
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SerialNumber")
+                        .HasColumnType("nvarchar(450)")
+                        .HasMaxLength(450);
 
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("bit");
@@ -699,6 +769,15 @@ namespace ASPNETCoreIdentitySample.DataLayer.MSSQL.Migrations
                     b.HasIndex("CategoryId");
 
                     b.ToTable("Products");
+                });
+
+            modelBuilder.Entity("ASPNETCoreIdentitySample.Entities.Identity.JwtUserToken", b =>
+                {
+                    b.HasOne("ASPNETCoreIdentitySample.Entities.Identity.User", "User")
+                        .WithMany("JwtUserTokens")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("ASPNETCoreIdentitySample.Entities.Identity.RoleClaim", b =>

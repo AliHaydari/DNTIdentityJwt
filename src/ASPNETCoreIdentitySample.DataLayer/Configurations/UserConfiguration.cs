@@ -8,6 +8,8 @@ namespace ASPNETCoreIdentitySample.DataLayer.Mappings
     {
         public void Configure(EntityTypeBuilder<User> builder)
         {
+            builder.Property(e => e.SerialNumber).HasMaxLength(450);
+
             builder.ToTable("AppUsers");
         }
     }

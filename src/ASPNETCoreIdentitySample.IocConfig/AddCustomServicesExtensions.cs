@@ -3,8 +3,10 @@ using System.Security.Principal;
 using ASPNETCoreIdentitySample.DataLayer.Context;
 using ASPNETCoreIdentitySample.Entities.Identity;
 using ASPNETCoreIdentitySample.Services.Contracts.Identity;
+using ASPNETCoreIdentitySample.Services.Contracts.Token;
 using ASPNETCoreIdentitySample.Services.Identity;
 using ASPNETCoreIdentitySample.Services.Identity.Logger;
+using ASPNETCoreIdentitySample.Services.Token;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -60,6 +62,11 @@ namespace ASPNETCoreIdentitySample.IocConfig
             services.AddScoped<IUsersPhotoService, UsersPhotoService>();
             services.AddScoped<ISecurityTrimmingService, SecurityTrimmingService>();
             services.AddScoped<IAppLogItemsService, AppLogItemsService>();
+
+            services.AddScoped<ITokenStoreService, TokenStoreService>();
+            services.AddScoped<ITokenFactoryService, TokenFactoryService>();
+            services.AddScoped<ITokenValidatorService, TokenValidatorService>();
+            services.AddSingleton<ISecurityService, SecurityService>();
 
             return services;
         }
