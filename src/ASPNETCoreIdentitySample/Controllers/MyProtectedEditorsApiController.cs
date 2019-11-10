@@ -1,4 +1,5 @@
 using ASPNETCoreIdentitySample.Services.Identity;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,7 +7,7 @@ namespace ASPNETCoreIdentitySample.Controllers
 {
     [Route("api/[controller]")]
     //[EnableCors("CorsPolicy")]
-    [Authorize(Policy = ConstantPolicies.DynamicPermission)]
+    [Authorize(Policy = ConstantPolicies.DynamicPermission, AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class MyProtectedEditorsApiController : Controller
     {
         public IActionResult Get()

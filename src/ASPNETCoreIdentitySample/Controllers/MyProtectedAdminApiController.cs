@@ -13,7 +13,7 @@ namespace ASPNETCoreIdentitySample.Controllers
 {
     [Route("api/[controller]")]
     //[EnableCors("CorsPolicy")]
-    [Authorize(Policy = ConstantPolicies.DynamicPermission)]
+    [Authorize(Policy = ConstantPolicies.DynamicPermission, AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
 
     // More info: https://www.dotnettips.info/post/2736/#comment-16140
     //[Authorize(Policy = ...., AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]

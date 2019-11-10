@@ -3,9 +3,9 @@ using ASPNETCoreIdentitySample.DataLayer.Context;
 using ASPNETCoreIdentitySample.Services.Contracts.Identity;
 using ASPNETCoreIdentitySample.Services.Contracts.Token;
 using ASPNETCoreIdentitySample.ViewModels.Identity;
+using ASPNETCoreIdentitySample.ViewModels.Identity.Settings.Token;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
@@ -64,16 +64,16 @@ namespace ASPNETCoreIdentitySample.Controllers
             await _tokenStoreService.AddUserTokenAsync(user, result.RefreshTokenSerial, result.AccessToken, null);
             await _uow.SaveChangesAsync();
 
-            //  _antiforgery.RegenerateAntiForgeryCookies(result.Claims);
+            _antiforgery.RegenerateAntiForgeryCookies(result.Claims);
 
             return Ok(new { access_token = result.AccessToken, refresh_token = result.RefreshToken });
         }
 
         [AllowAnonymous]
         [HttpPost("[action]")]
-        public async Task<IActionResult> RefreshToken([FromBody]JToken jsonBody)
+        public async Task<IActionResult> RefreshToken([FromBody]Token jsonBody)
         {
-            var refreshTokenValue = jsonBody.Value<string>("refreshToken");
+            var refreshTokenValue = jsonBody.RefreshToken;
             if (string.IsNullOrWhiteSpace(refreshTokenValue))
             {
                 return BadRequest("refreshToken is not set.");
@@ -89,7 +89,7 @@ namespace ASPNETCoreIdentitySample.Controllers
             await _tokenStoreService.AddUserTokenAsync(token.User, result.RefreshTokenSerial, result.AccessToken, _tokenFactoryService.GetRefreshTokenSerial(refreshTokenValue));
             await _uow.SaveChangesAsync();
 
-            //  _antiforgery.RegenerateAntiForgeryCookies(result.Claims);
+            _antiforgery.RegenerateAntiForgeryCookies(result.Claims);
 
             return Ok(new { access_token = result.AccessToken, refresh_token = result.RefreshToken });
         }
@@ -106,7 +106,7 @@ namespace ASPNETCoreIdentitySample.Controllers
             await _tokenStoreService.RevokeUserBearerTokensAsync(userIdValue, refreshToken);
             await _uow.SaveChangesAsync();
 
-            //  _antiforgery.DeleteAntiForgeryCookies();
+            _antiforgery.DeleteAntiForgeryCookies();
 
             return true;
         }
