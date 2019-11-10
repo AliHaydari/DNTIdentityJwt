@@ -36,6 +36,9 @@ namespace ASPNETCoreIdentitySample
 
             #region Jwt
 
+            // More info: https://www.dotnettips.info/post/2736
+            // More info: https://www.dotnettips.info/post/2736/#comment-16140
+
             services.Configure<BearerTokensOptions>(options => Configuration.GetSection("BearerTokens").Bind(options));
             services.Configure<ApiSettings>(options => Configuration.GetSection("ApiSettings").Bind(options));
 

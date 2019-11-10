@@ -1,6 +1,8 @@
 using ASPNETCoreIdentitySample.Common.GuardToolkit;
 using ASPNETCoreIdentitySample.Services.Contracts.Identity;
 using ASPNETCoreIdentitySample.Services.Identity;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
@@ -12,6 +14,11 @@ namespace ASPNETCoreIdentitySample.Controllers
     [Route("api/[controller]")]
     //[EnableCors("CorsPolicy")]
     [Authorize(Policy = ConstantPolicies.DynamicPermission)]
+
+    // More info: https://www.dotnettips.info/post/2736/#comment-16140
+    //[Authorize(Policy = ...., AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    // Or
+    //[Authorize(Policy = ...., AuthenticationSchemes = CookieAuthenticationDefaults.AuthenticationScheme + ", " + JwtBearerDefaults.AuthenticationScheme)]
     public class MyProtectedAdminApiController : Controller
     {
         private readonly IApplicationUserManager _usersService;
