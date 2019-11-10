@@ -38,6 +38,8 @@ namespace ASPNETCoreIdentitySample
 
             // More info: https://www.dotnettips.info/post/2736
             // More info: https://www.dotnettips.info/post/2736/#comment-16140
+            // More info: https://www.dotnettips.info/post/2577/#comment-15752
+            // More info: https://www.dotnettips.info/post/2736/#comment-15476
 
             services.Configure<BearerTokensOptions>(options => Configuration.GetSection("BearerTokens").Bind(options));
             services.Configure<ApiSettings>(options => Configuration.GetSection("ApiSettings").Bind(options));
