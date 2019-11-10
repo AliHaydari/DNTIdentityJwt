@@ -1,0 +1,183 @@
+{
+	"info": {
+		"_postman_id": "c2d0db99-8741-4077-9b5f-b4065082ccfa",
+		"name": "DNTIdentityJwt",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a7f74884-a803-4b52-a088-ea0b3e414d00",
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"pm.globals.set(\"access_token\", jsonData.access_token);\r",
+							"pm.globals.set(\"refresh_token\", jsonData.refresh_token);\r",
+							"pm.globals.set('XSRF-TOKEN', pm.cookies.get('XSRF-TOKEN'));"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"Admin\",\n    \"password\": \"123@456#Pass\",\n    \"rememberMe\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:44382/api/Account/Login",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44382",
+					"path": [
+						"api",
+						"Account",
+						"Login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "MyProtectedApi",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{access_token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://localhost:44382/api/MyProtectedApi",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44382",
+					"path": [
+						"api",
+						"MyProtectedApi"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "RefreshToken",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7cbbbc68-e2cc-4d47-86fb-6d69d28236e1",
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"pm.globals.set(\"access_token\", jsonData.access_token);\r",
+							"pm.globals.set(\"refresh_token\", jsonData.refresh_token);\r",
+							"pm.globals.set('XSRF-TOKEN', pm.cookies.get('XSRF-TOKEN'));"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{access_token}}",
+						"type": "text"
+					},
+					{
+						"key": "X-XSRF-TOKEN",
+						"value": "{{XSRF-TOKEN}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"refreshToken\": \"{{refresh_token}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:44382/api/Account/RefreshToken",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44382",
+					"path": [
+						"api",
+						"Account",
+						"RefreshToken"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Logout",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{access_token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://localhost:44382/api/Account/Logout?refreshToken={{refresh_token}}",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44382",
+					"path": [
+						"api",
+						"Account",
+						"Logout"
+					],
+					"query": [
+						{
+							"key": "refreshToken",
+							"value": "{{refresh_token}}"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
