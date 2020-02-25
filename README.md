@@ -1,6 +1,6 @@
 ﻿<div dir="rtl">
 
-سفارشی سازی ASP.NET Core Identity SDK-3.0.100 به همراه Jwt
+سفارشی سازی ASP.NET Core Identity SDK-3.1.102 به همراه Jwt
 =======
 
 

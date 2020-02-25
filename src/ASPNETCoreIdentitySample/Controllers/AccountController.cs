@@ -71,9 +71,9 @@ namespace ASPNETCoreIdentitySample.Controllers
 
         [AllowAnonymous]
         [HttpPost("[action]")]
-        public async Task<IActionResult> RefreshToken([FromBody]Token jsonBody)
+        public async Task<IActionResult> RefreshToken([FromBody]Token model)
         {
-            var refreshTokenValue = jsonBody.RefreshToken;
+            var refreshTokenValue = model.RefreshToken;
             if (string.IsNullOrWhiteSpace(refreshTokenValue))
             {
                 return BadRequest("refreshToken is not set.");

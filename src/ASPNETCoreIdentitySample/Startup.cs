@@ -41,6 +41,13 @@ namespace ASPNETCoreIdentitySample
             // More info: https://www.dotnettips.info/post/2577/#comment-15752
             // More info: https://www.dotnettips.info/post/2736/#comment-15476
 
+            //services.AddOptions<BearerTokensOptions>()
+            //    .Bind(Configuration.GetSection("BearerTokens"))
+            //    .Validate(bearerTokens =>
+            //    {
+            //        return bearerTokens.AccessTokenExpirationMinutes < bearerTokens.RefreshTokenExpirationMinutes;
+            //    }, "RefreshTokenExpirationMinutes is less than AccessTokenExpirationMinutes. Obtaining new tokens using the refresh token should happen only if the access token has expired.");
+
             services.Configure<BearerTokensOptions>(options => Configuration.GetSection("BearerTokens").Bind(options));
             services.Configure<ApiSettings>(options => Configuration.GetSection("ApiSettings").Bind(options));
 
@@ -97,12 +104,13 @@ namespace ASPNETCoreIdentitySample
 
             //services.AddCors(options =>
             //{
-            //  options.AddPolicy("CorsPolicy",
-            //    builder => builder
-            //      .WithOrigins("https://localhost:5001") //Note:  The URL must be specified without a trailing slash (/).
-            //      .AllowAnyMethod()
-            //      .AllowAnyHeader()
-            //      .AllowCredentials());
+            //    options.AddPolicy("CorsPolicy",
+            //        builder => builder
+            //            .WithOrigins("http://localhost:4200") //Note:  The URL must be specified without a trailing slash (/).
+            //            .AllowAnyMethod()
+            //            .AllowAnyHeader()
+            //            .SetIsOriginAllowed((host) => true)
+            //            .AllowCredentials());
             //});
 
             //services.AddAntiforgery(x => x.HeaderName = "X-XSRF-TOKEN");
@@ -112,7 +120,10 @@ namespace ASPNETCoreIdentitySample
             // Adds all of the ASP.NET Core Identity related services and configurations at once.
             services.AddCustomIdentityServices();
 
-            services.AddMvc(options => options.UseYeKeModelBinder());
+            services.AddMvc(options => {
+                options.UseYeKeModelBinder();
+                //options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
+            });
 
             services.AddDNTCommonWeb();
             services.AddDNTCaptcha();
@@ -131,6 +142,37 @@ namespace ASPNETCoreIdentitySample
 
             app.UseHttpsRedirection();
             app.UseExceptionHandler("/error/index/500");
+            //app.UseExceptionHandler(appBuilder =>
+            //{
+            //    appBuilder.Use(async (context, next) =>
+            //    {
+            //        var error = context.Features[typeof(IExceptionHandlerFeature)] as IExceptionHandlerFeature;
+            //        if (error != null && error.Error is SecurityTokenExpiredException)
+            //        {
+            //            context.Response.StatusCode = 401;
+            //            context.Response.ContentType = "application/json";
+            //            await context.Response.WriteAsync(JsonSerializer.Serialize(new//System.Text.Json
+            //            {
+            //                State = 401,
+            //                Msg = "token expired"
+            //            }));
+            //        }
+            //        else if (error != null && error.Error != null)
+            //        {
+            //            context.Response.StatusCode = 500;
+            //            context.Response.ContentType = "application/json";
+            //            await context.Response.WriteAsync(JsonSerializer.Serialize(new
+            //            {
+            //                State = 500,
+            //                Msg = error.Error.Message
+            //            }));
+            //        }
+            //        else
+            //        {
+            //            await next();
+            //        }
+            //    });
+            //});
             app.UseStatusCodePagesWithReExecute("/error/index/{0}");
 
             app.UseContentSecurityPolicy();
@@ -140,6 +182,7 @@ namespace ASPNETCoreIdentitySample
             app.UseRouting();
 
             app.UseAuthentication();
+            //app.UseCors("CorsPolicy");
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
