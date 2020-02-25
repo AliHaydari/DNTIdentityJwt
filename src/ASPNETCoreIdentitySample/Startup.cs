@@ -120,7 +120,8 @@ namespace ASPNETCoreIdentitySample
             // Adds all of the ASP.NET Core Identity related services and configurations at once.
             services.AddCustomIdentityServices();
 
-            services.AddMvc(options => {
+            services.AddMvc(options =>
+            {
                 options.UseYeKeModelBinder();
                 //options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
             });
